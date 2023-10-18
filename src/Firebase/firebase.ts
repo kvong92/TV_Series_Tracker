@@ -55,3 +55,13 @@ export async function getUserSession(db :Firestore){
         console.log("No user logged in");
     }
 }
+
+export async function getUsers (db: Firestore) {
+    const usersCol = collection(db, 'users');
+    await getDocs(usersCol)
+        .then((snapshot) => {
+            const res = snapshot.docs.map(doc => doc.data());
+            // console.log(res);
+            return res;
+        })
+}
