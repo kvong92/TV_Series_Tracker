@@ -1,4 +1,5 @@
 import { FirebaseApp, initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
 
 export function dbConnect() {
@@ -17,12 +18,40 @@ export function dbConnect() {
     return db;
 }
 
-export async function getUsers(db: Firestore) {
-    const usersCol = collection(db, 'users');
-    await getDocs(usersCol)
-        .then((snapshot) => {
-            const res = snapshot.docs.map(doc => doc.data());
-            console.log(res);
-            return res;
-        })
+export async function connectUser(db: Firestore, email: string, password: string) {
+    const auth = getAuth();
+    
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        return "User logged in successfully";
+    } catch (error: any) {
+        const errorMessage = error.message;
+        return errorMessage;
+    }
+}
+
+
+
+export async function createUser(db : Firestore, email: string, password: string){
+    const auth = getAuth();
+
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        return "User created successfully";
+    } catch (error: any) {
+        const errorMessage = error.message;
+        return errorMessage;
+    }
+}
+    
+
+export async function getUserSession(db :Firestore){
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if(user){
+        console.log(user);
+    }
+    else{
+        console.log("No user logged in");
+    }
 }
