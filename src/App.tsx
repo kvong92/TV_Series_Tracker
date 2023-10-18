@@ -6,14 +6,16 @@ import { getUsers, dbConnect } from '../src/Firebase/firebase'
 
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
-
 export default function App() {
   const db = dbConnect();
-  getUsers(db);
+  const users = getUsers(db);
+  console.log(users);
 
   return (
-    <h1 className="text-3xl font-bold ">
-      Hello world!
-    </h1>
+    <>
+      <h1 className="text-3xl font-bold ">
+        Hello world!
+      </h1>
+    </>
   )
 }

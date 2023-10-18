@@ -17,12 +17,12 @@ export function dbConnect() {
     return db;
 }
 
-export async function getUsers(db: Firestore) {
+export async function getUsers (db: Firestore) {
     const usersCol = collection(db, 'users');
     await getDocs(usersCol)
         .then((snapshot) => {
             const res = snapshot.docs.map(doc => doc.data());
-            console.log(res);
+            // console.log(res);
             return res;
         })
 }
