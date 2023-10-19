@@ -5,6 +5,7 @@ import {SeriesPoster} from "./components/SeriesPoster";
 import {useSearchParams} from "react-router-dom";
 import {PaginationButton} from "./components/PaginationButton";
 
+
 export interface Series {
     id: number;
     name: string;
@@ -26,7 +27,6 @@ export type Genre = {
     id: number;
     name: string;
 }
-
 export const options = {
     method: 'GET',
     headers: {
