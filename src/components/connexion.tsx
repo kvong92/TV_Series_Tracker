@@ -35,32 +35,21 @@ export default function Connexion() {
         const db = dbConnect();
         const message = await connectUser(db, email, password);
 
-        if (message === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).'){
-            setError('Trop de tentatives de connexion. Veuillez réessayer plus tard.');
-            setSuccess('');
-            return;
-        }else if(message === 'Firebase: Error (auth/invalid-login-credentials).'){
-            setError('Email ou mot de passe incorrect. Veuillez réessayer.');
-            setSuccess('');
-            return;
-        } else if (message === 'User logged in successfully') {
+        const errorMessages:any = {
+            'auth/email-already-in-use': 'Email déjà utilisé. Veuillez réessayer.',
+            'auth/invalid-email': 'Email invalide. Veuillez réessayer.',
+            'auth/weak-password': 'Mot de passe trop faible. Veuillez réessayer.',
+            'auth/invalid-login-credentials': 'Email ou mot de passe incorrect. Veuillez réessayer.',
+            'auth/too-many-requests': 'Trop de tentatives de connexion. Veuillez réessayer plus tard.',
+        };
+    
+        if (message !== 'User logged in successfully') {
+            setError(errorMessages[message] || 'Une erreur est survenue. Veuillez réessayer plus tard.');
+            setSuccess(message);
+        } else {
             setSuccess('Vous êtes connecté !');
             setError('');
-            return;
-        }else if (message === 'Firebase: Error (auth/user-not-found).'){
-            setError('L\'utilisateur n\'existe pas. Veuillez réessayer.');
-            setSuccess('');
-            return;
-        }else if (message === 'Firebase: Error (auth/wrong-password).'){
-            setError('Mot de passe incorrect. Veuillez réessayer.');
-            setSuccess('');
-            return;
-        } else {
-            setError('Une erreur est survenue. Veuillez réessayer plus tard.');
-            setSuccess('');
-            return;
         }
-
     }
 
     return (

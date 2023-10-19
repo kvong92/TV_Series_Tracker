@@ -26,30 +26,20 @@ export default function Inscription() {
         const db = dbConnect();
         const message = await createUser(db, email, password);
 
-        if (message === 'Firebase: Error (auth/email-already-in-use).'){
-            setError('Email déjà utilisé. Veuillez réessayer.');
+         const errorMessages:any = {
+            'auth/email-already-in-use': 'Email déjà utilisé. Veuillez réessayer.',
+            'auth/invalid-email': 'Email invalide. Veuillez réessayer.',
+            'auth/weak-password': 'Mot de passe trop faible. Veuillez réessayer.',
+            'User created successfully': 'Vous êtes inscrit !',
+            'auth/too-many-requests': 'Trop de tentatives de connexion. Veuillez réessayer plus tard.',
+        };
+
+        if (message !== 'User created successfully') {
+            setError(errorMessages[message] || 'Une erreur est survenue. Veuillez réessayer plus tard.');
             setSuccess('');
-            return;
-        } else if (message === 'Firebase: Error (auth/invalid-email).'){
-            setError('Email invalide. Veuillez réessayer.');
-            setSuccess(''); 
-            return;
-        } else if (message === 'Firebase: Error (auth/weak-password).'){
-            setError('Mot de passe trop faible. Veuillez réessayer.');
-            setSuccess('');
-            return;
-        } else if (message === 'User created successfully') {
+        } else {
             setSuccess('Vous êtes inscrit !');
             setError('');
-            return;
-        } else if (message === 'Firebase: Password should be at least 6 characters (auth/weak-password).'){
-            setError('Le mot de passe doit contenir au moins 6 caractères. Veuillez réessayer.');
-            setSuccess('');
-            return;
-        }else {
-            setError('Une erreur est survenue. Veuillez réessayer plus tard.');
-            setSuccess('');
-            return;
         }
     }
 
