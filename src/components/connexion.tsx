@@ -32,7 +32,6 @@ export default function Connexion() {
 
         const db = dbConnect();
         const message = await connectUser(email, password);
-
         const errorMessages:any = {
             'auth/email-already-in-use': 'Email déjà utilisé. Veuillez réessayer.',
             'auth/invalid-email': 'Email invalide. Veuillez réessayer.',
@@ -43,7 +42,7 @@ export default function Connexion() {
     
         if (message !== 'User logged in successfully') {
             setError(errorMessages[message] || 'Une erreur est survenue. Veuillez réessayer plus tard.');
-            setSuccess("");
+            setSuccess(message);
         } else {
             setSuccess('Vous êtes connecté !');
             setError('');
