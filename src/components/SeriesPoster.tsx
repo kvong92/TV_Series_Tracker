@@ -60,9 +60,9 @@ export function SeriesPoster ({ series }: SeriesPosterProps) {
     useEffect(() => {
         getSeriesDetails(series.id).then((series) => setSeriesDetails(series))
 
-    } , [])
+    } , [series])
     return (
-            <a className="relative w-full" href={`/series/${series.id}`}>
+            <a className="relative w-full cursor-default" href={`/series/${series.id}`}>
                 <img className="rounded-md w-full" src={`https://image.tmdb.org/t/p/original${series.backdrop_path}`} alt={series.name} />
                 <FollowButton />
                 <div className="absolute flex flex-col bottom-1 left-1  md:bottom-10 md:left-10 p-2 text-white w-5/6 sm:w-2/3 md:w-1/2  xl:w-1/3 max-h-full">
@@ -75,7 +75,7 @@ export function SeriesPoster ({ series }: SeriesPosterProps) {
                             <Pill text={`${seriesDetails.number_of_seasons} season${seriesDetails.number_of_seasons > 1 ? 's': ''}`} />
                             <Pill text={`${seriesDetails.number_of_episodes} episode${seriesDetails.number_of_episodes > 1 ? 's': ''}`} />
                             {seriesDetails.genres.map((genre) =>
-                                <Pill text={genre.name} url={`/genres/${genre.id}`} />
+                                <Pill text={genre.name} url={`/?genre=${genre.id}#genres`} />
                             )}
                             <Pill text={seriesDetails.first_air_date.split('-')[0]} />
                         </div>
