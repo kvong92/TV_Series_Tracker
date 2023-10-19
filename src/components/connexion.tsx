@@ -46,7 +46,7 @@ export default function Connexion() {
     
         if (message !== 'User logged in successfully') {
             setError(errorMessages[message] || 'Une erreur est survenue. Veuillez réessayer plus tard.');
-            setSuccess(message);
+            setSuccess("");
         } else {
             setSuccess('Vous êtes connecté !');
             setError('');
