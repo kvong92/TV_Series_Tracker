@@ -49,7 +49,7 @@ interface SeriesDetails extends Series {
 
 }
 
-const getSeriesDetails= async (seriesId: number): Promise<SeriesDetails> => {
+export const getSeriesDetails= async (seriesId: number): Promise<SeriesDetails> => {
     return await fetch(`https://api.themoviedb.org/3/tv/${seriesId}?language=en-US`, options)
         .then(response => response.json())
         .catch(error => console.log(error))
@@ -59,7 +59,6 @@ export function SeriesPoster ({ series }: SeriesPosterProps) {
     const [seriesDetails, setSeriesDetails] = useState<SeriesDetails>()
     useEffect(() => {
         getSeriesDetails(series.id).then((series) => setSeriesDetails(series))
-
     } , [series])
     return (
             <a className="relative w-full cursor-default" href={`/series/${series.id}`}>

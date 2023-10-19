@@ -10,6 +10,7 @@ interface SeriesCardProps {
     genres: Genre[]
 }
 
+
 export default function SeriesCard({ categoriesRef, series, genres }: SeriesCardProps) {
     const [location, setLocation] = useSearchParams();
     return (

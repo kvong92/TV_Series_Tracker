@@ -2,6 +2,7 @@ import show_password from '../images/show-password.svg';
 import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
 import { createUser, dbConnect, getUserSession } from '../Firebase/firebase'
+import { Link } from "react-router-dom";
 
 export default function Inscription() {
 
@@ -26,30 +27,20 @@ export default function Inscription() {
         const db = dbConnect();
         const message = await createUser(db, email, password);
 
-        if (message === 'Firebase: Error (auth/email-already-in-use).'){
-            setError('Email déjà utilisé. Veuillez réessayer.');
+         const errorMessages:any = {
+            'auth/email-already-in-use': 'Email déjà utilisé. Veuillez réessayer.',
+            'auth/invalid-email': 'Email invalide. Veuillez réessayer.',
+            'auth/weak-password': 'Mot de passe trop faible. Veuillez réessayer.',
+            'User created successfully': 'Vous êtes inscrit !',
+            'auth/too-many-requests': 'Trop de tentatives de connexion. Veuillez réessayer plus tard.',
+        };
+
+        if (message !== 'User created successfully') {
+            setError(errorMessages[message] || 'Une erreur est survenue. Veuillez réessayer plus tard.');
             setSuccess('');
-            return;
-        } else if (message === 'Firebase: Error (auth/invalid-email).'){
-            setError('Email invalide. Veuillez réessayer.');
-            setSuccess(''); 
-            return;
-        } else if (message === 'Firebase: Error (auth/weak-password).'){
-            setError('Mot de passe trop faible. Veuillez réessayer.');
-            setSuccess('');
-            return;
-        } else if (message === 'User created successfully') {
+        } else {
             setSuccess('Vous êtes inscrit !');
             setError('');
-            return;
-        } else if (message === 'Firebase: Password should be at least 6 characters (auth/weak-password).'){
-            setError('Le mot de passe doit contenir au moins 6 caractères. Veuillez réessayer.');
-            setSuccess('');
-            return;
-        }else {
-            setError('Une erreur est survenue. Veuillez réessayer plus tard.');
-            setSuccess('');
-            return;
         }
     }
 
@@ -117,7 +108,7 @@ export default function Inscription() {
         <div>
             <button type="submit" className="bg-yellow-300 rounded-lg py-2.5 px-6 h-10 font-bold">SUBMIT</button>
         </div>
-        <p className='text-white'>Vous avez déjà un compte ? <span className='hover:underline'>connectez-vous !</span></p>
+        <p className='text-white'>Vous avez déjà un compte ? <Link to="/connexion" className='hover:underline'>connectez-vous !</Link></p>
       </form>
     );
   }
