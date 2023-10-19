@@ -69,13 +69,6 @@ export const onClickGenre = (e: MouseEvent<HTMLElement>, categoriesRef: RefObjec
     if (categoriesRef && categoriesRef.current) categoriesRef.current.scrollIntoView({behavior: "smooth"})
 }
 
-import { getUsers, dbConnect } from '../src/Firebase/firebase'
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-
-import EditProfile from './pages/EditProfile'
-import Connexion from './components/connexion'
-import Inscription from './components/inscription';
-
 export default function App() {
     const [location, setLocation] = useSearchParams()
     const [allSeries, setAllSeries] = React.useState<Series[]>([])

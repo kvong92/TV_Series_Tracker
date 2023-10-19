@@ -64,6 +64,9 @@ export function SeriesPoster ({ series }: SeriesPosterProps) {
             <a className="relative w-full cursor-default" href={`/series/${series.id}`}>
                 <img className="rounded-md w-full" src={`https://image.tmdb.org/t/p/original${series.backdrop_path}`} alt={series.name} />
                 <FollowButton />
+                {series.vote_average &&
+                    <Pill text={series.vote_average.toFixed(1).toString()} className="absolute top-2 left-2" />
+                }
                 <div className="absolute flex flex-col bottom-1 left-1  md:bottom-10 md:left-10 p-2 text-white w-5/6 sm:w-2/3 md:w-1/2  xl:w-1/3 max-h-full">
                     <span className="sm:text-xl md:text-2xl lg:text-4xl font-bold pb-4">{series.name}</span>
                     <p className="text-sm md:text-lg lg:text-xl hyphens-auto line-clamp-4" lang="en">
