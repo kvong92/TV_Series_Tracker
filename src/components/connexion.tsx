@@ -3,14 +3,11 @@ import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
 import { connectUser, dbConnect } from '../Firebase/firebase'
 
-
 export default function Connexion() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
-    
 
     useEffect(() => {
         setError('');
@@ -33,13 +30,13 @@ export default function Connexion() {
         event.preventDefault();
 
         const db = dbConnect();
-        const message = await connectUser(db, email, password);
+        const message = await connectUser( email, password);
 
         if (message === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).'){
             setError('Trop de tentatives de connexion. Veuillez réessayer plus tard.');
             setSuccess('');
             return;
-        }else if(message === 'Firebase: Error (auth/invalid-login-credentials).'){
+        } else if(message === 'Firebase: Error (auth/invalid-login-credentials).'){
             setError('Email ou mot de passe incorrect. Veuillez réessayer.');
             setSuccess('');
             return;
@@ -47,11 +44,11 @@ export default function Connexion() {
             setSuccess('Vous êtes connecté !');
             setError('');
             return;
-        }else if (message === 'Firebase: Error (auth/user-not-found).'){
+        } else if (message === 'Firebase: Error (auth/user-not-found).'){
             setError('L\'utilisateur n\'existe pas. Veuillez réessayer.');
             setSuccess('');
             return;
-        }else if (message === 'Firebase: Error (auth/wrong-password).'){
+        } else if (message === 'Firebase: Error (auth/wrong-password).'){
             setError('Mot de passe incorrect. Veuillez réessayer.');
             setSuccess('');
             return;
@@ -60,7 +57,6 @@ export default function Connexion() {
             setSuccess('');
             return;
         }
-
     }
 
     return (

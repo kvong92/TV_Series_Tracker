@@ -5,11 +5,13 @@ import { getUsers, dbConnect } from '../src/Firebase/firebase'
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 import EditProfile from './pages/EditProfile'
+import Connexion from './components/connexion'
+import Inscription from './components/inscription';
 
 export default function App() {
   const db = dbConnect();
-  const users = getUsers(db);
-  console.log(users);
+  // const users = getUsers(db);
+  // console.log(users);
 
   return (
     <>
@@ -17,6 +19,8 @@ export default function App() {
         Hello world!
       </h1>
       <br></br>
+      <Inscription />
+      <Connexion />
       <EditProfile />
     </>
   )
