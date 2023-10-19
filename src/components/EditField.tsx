@@ -28,12 +28,12 @@ export default function EditField({ data, setData, handleUpdate, currentPassword
                 <div className="w-full max-w-sm mx-auto p-8 flex flex-row justify-between items-center">
                     {type === "email" && (
                         <p className="block text-gray-700 text-2xl font-bold text-white py-2 px-4">
-                            {data}
+                            Edit {type}
                         </p>
                     )}
                     {type === "password" && (
                         <p className="block text-gray-700 text-2xl font-bold text-white py-2 px-4">
-                            ********
+                            Edit {type}
                         </p>
                     )}
                     <BiSolidEdit
@@ -54,7 +54,7 @@ export default function EditField({ data, setData, handleUpdate, currentPassword
                                 type={type}
                                 id="data"
                                 name="data"
-                                placeholder={type === "email" ? "Nouvel email" : "Nouveau mot de passe"}
+                                placeholder={type === "email" ? "Nouvel email"  : "Nouveau mot de passe"}
                                 autoComplete='true'
                                 onChange={(e) => setData(e.target.value)}
                             />

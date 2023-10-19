@@ -30,7 +30,7 @@ export default function Connexion() {
         event.preventDefault();
 
         const db = dbConnect();
-        const message = await connectUser( email, password);
+        const message = await connectUser(email, password);
 
         if (message === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).'){
             setError('Trop de tentatives de connexion. Veuillez réessayer plus tard.');
@@ -92,5 +92,3 @@ export default function Connexion() {
         </form>
     );
 }
-
-
