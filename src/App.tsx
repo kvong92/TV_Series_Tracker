@@ -1,5 +1,5 @@
 import React, {MouseEvent, RefObject, useEffect} from 'react';
-import './App.css';
+// import './App.css';
 import SeriesCard from "./components/SeriesCard";
 import {SeriesPoster} from "./components/SeriesPoster";
 import {useSearchParams} from "react-router-dom";

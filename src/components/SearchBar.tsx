@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import instance from '../../services/API';
+import instance from '../services/API';
 
 export const SearchBar: React.FC = () => {
   const [items, setItems] = useState<string[]>([]);
