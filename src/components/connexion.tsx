@@ -4,14 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { connectUser, dbConnect } from '../Firebase/firebase'
 import { Link } from "react-router-dom";
 
-
 export default function Connexion() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
-    
 
     useEffect(() => {
         setError('');
@@ -34,7 +31,7 @@ export default function Connexion() {
         event.preventDefault();
 
         const db = dbConnect();
-        const message = await connectUser(db, email, password);
+        const message = await connectUser(email, password);
 
         const errorMessages:any = {
             'auth/email-already-in-use': 'Email déjà utilisé. Veuillez réessayer.',
@@ -86,5 +83,3 @@ export default function Connexion() {
         </form>
     );
 }
-
-

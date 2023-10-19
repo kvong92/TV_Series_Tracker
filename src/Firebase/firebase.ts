@@ -1,5 +1,5 @@
 import { FirebaseApp, initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { browserSessionPersistence, setPersistence, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
 
 export function dbConnect() {
@@ -18,9 +18,8 @@ export function dbConnect() {
     return db;
 }
 
-export async function connectUser(db: Firestore, email: string, password: string) {
+export async function connectUser(email: string, password: string) {
     const auth = getAuth();
-    
     try {
         await signInWithEmailAndPassword(auth, email, password);
         return "User logged in successfully";
@@ -30,9 +29,7 @@ export async function connectUser(db: Firestore, email: string, password: string
     }
 }
 
-
-
-export async function createUser(db : Firestore, email: string, password: string){
+export async function createUser(db: Firestore, email: string, password: string) {
     const auth = getAuth();
 
     try {
@@ -43,15 +40,34 @@ export async function createUser(db : Firestore, email: string, password: string
         return errorMessage;
     }
 }
-    
 
-export async function getUserSession(db :Firestore){
+export async function getUserSession() {
     const auth = getAuth();
     const user = auth.currentUser;
-    if(user){
-        console.log(user);
+    if (user) {
+        // console.log(user);
+        return user;
     }
-    else{
+    else {
         console.log("No user logged in");
     }
+}
+
+export async function getUsers(db: Firestore) {
+    const usersCol = collection(db, 'users');
+    await getDocs(usersCol)
+        .then((snapshot) => {
+            const res = snapshot.docs.map(doc => doc.data());
+            // console.log(res);
+            return res;
+        })
+}
+
+export async function signOutUser() {
+    const auth = getAuth();
+    await auth.signOut().then(() => {
+        console.log("User signed out successfully");
+    }).catch((error) => {
+        console.log(error);
+    });
 }
