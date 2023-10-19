@@ -2,6 +2,7 @@ import show_password from '../images/show-password.svg';
 import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
 import { createUser, dbConnect, getUserSession } from '../Firebase/firebase'
+import { Link } from "react-router-dom";
 
 export default function Inscription() {
 
@@ -107,7 +108,7 @@ export default function Inscription() {
         <div>
             <button type="submit" className="bg-yellow-300 rounded-lg py-2.5 px-6 h-10 font-bold">SUBMIT</button>
         </div>
-        <p className='text-white'>Vous avez déjà un compte ? <span className='hover:underline'>connectez-vous !</span></p>
+        <p className='text-white'>Vous avez déjà un compte ? <Link to="/connexion" className='hover:underline'>connectez-vous !</Link></p>
       </form>
     );
   }
