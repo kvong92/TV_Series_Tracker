@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getSeriesEpisodes } from "./SeriesPoster";
 import { formatDate } from "./nextEpisode";
+import "./DetailSeasons.css"
 
 export default function DetailSeasons({ serie_data }: any) {
 
@@ -28,31 +29,66 @@ export default function DetailSeasons({ serie_data }: any) {
     const now = new Date();
 
     return (
-        <div>
+        <div className="my-container">
             {seasons ? (
-                <div className="flex flex-col gap-4">
-                    {seasons.map((season: any) => (
-                        <div key={season.season} className="flex flex-col gap-4">
-                            <h1 className="text-white text-xl font-semibold">{`Saison ${season.season}`}</h1>
-                            <div className="flex flex-nowrap whitespace-nowrap overflow-x-scroll gap-4">
-                            {season.episodes
-                                .filter((episode: any) => new Date(episode.air_date) <= now)
-                                .map((episode: any) => (
-                                    <div key={episode.id} className="w-96">
-                                        <img src={`https://image.tmdb.org/t/p/w500/${episode.still_path}`} alt="" className="rounded-md" />
-                                        <div className="flex flex-col gap-3 p-3">
-                                            <p className="text-white font-semibold">{episode.name}</p>
-                                            <p className="text-white">{episode.overview}</p>
-                                            <p className="text-white">{formatDate(new Date(episode.air_date))}</p> {/* Utilisez formatDate pour formater la date */}
-                                        </div>
-                                    </div>
-                                ))
+            <div>
+                {seasons.map((season: any) => (
+                <div key={season.season} className="flex flex-col gap-4">
+                    <h1 className="text-white text-xl font-semibold">{`Saison ${season.season}`}</h1>
+                    <div className="my-container__season__episodes">
+                    {season.episodes
+                        .filter((episode: any) => new Date(episode.air_date) <= now)
+                        .map((episode: any) => (
+                        <div key={episode.id} className="my-container__season__episodes__episode">
+                            <img 
+                            src={
+                                episode.still_path
+                                ? `https://image.tmdb.org/t/p/w500/${episode.still_path}`
+                                : `https://image.tmdb.org/t/p/original/${serie_data["backdrop_path"]}`
                             }
+                            alt="" 
+                            className="rounded-md"
+                            />
+                            <div className="flex flex-col px-5 gap-4 pb-5">
+                                <p className="text-white font-bold">{episode.name}</p>
+                                <p className="text-white">{episode.overview}</p>
+                                <p className="text-white">{formatDate(new Date(episode.air_date))}</p>
                             </div>
                         </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+                ))}
+            </div>
             ) : null}
         </div>
     );
 }
+
+
+// {/* <div>
+//     {seasons ? (
+//         <div className="flex flex-col gap-4">
+//             {seasons.map((season: any) => (
+//                 <div key={season.season} className="flex flex-col gap-4">
+//                     <h1 className="text-white text-xl font-semibold">{`Saison ${season.season}`}</h1>
+//                     <div className="flex flex-nowrap whitespace-nowrap overflow-x-scroll gap-4">
+//                     {season.episodes
+//                         .filter((episode: any) => new Date(episode.air_date) <= now)
+//                         .map((episode: any) => (
+//                             <div key={episode.id} className="w-96">
+//                                 <img src={`https://image.tmdb.org/t/p/w500/${episode.still_path}`} alt="" className="rounded-md" />
+//                                 <div className="flex flex-col gap-3 p-3">
+//                                     <p className="text-white font-semibold">{episode.name}</p>
+//                                     <p className="text-white">{episode.overview}</p>
+//                                     <p className="text-white">{formatDate(new Date(episode.air_date))}</p> {/* Utilisez formatDate pour formater la date */}
+//                                 </div>
+//                             </div>
+//                         ))
+//                     }
+//                     </div>
+//                 </div>
+//             ))}
+//         </div>
+//     ) : null}
+// </div> */}

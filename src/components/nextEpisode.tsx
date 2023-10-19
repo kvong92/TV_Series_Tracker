@@ -16,13 +16,16 @@ export const formatDate = (date: Date) => {
 export default function NextEpisode({ serie_data }: NextEpisodeProps) {
 
     const airDate = new Date(serie_data["next_episode_to_air"]["air_date"]);
-
-    
+    console.log(serie_data);
     return (
         <div className="flex flex-col items-start gap-6 self-stretch">
             <p className="text-white text-xl font-semibold">Next Episode</p>
             <div className="flex flex-row">
-                <img src={`https://image.tmdb.org/t/p/original/${serie_data["next_episode_to_air"]["still_path"]}`} alt="" className="w-96	rounded-xl"/>
+                <img src={
+                    serie_data["next_episode_to_air"]["still_path"]
+                    ? `https://image.tmdb.org/t/p/original/${serie_data["next_episode_to_air"]["still_path"]}`
+                    : `https://image.tmdb.org/t/p/original/${serie_data["backdrop_path"]}`
+                } alt="" className="w-96	rounded-xl"/>
                 <div className="flex flex-col gap-3 p-3">
                     <p className="text-white font-semibold">{serie_data["next_episode_to_air"]["name"]}</p>
                     <p className="text-white">{serie_data["next_episode_to_air"]["overview"]}</p>
