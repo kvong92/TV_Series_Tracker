@@ -12,7 +12,6 @@ export default function DetailSerie() {
 
     const { serie_id } = useParams();
     const [serie_data, setSerieData] = useState<any>(null);
-    const [next_episode, setNextEpisode] = useState<any>(null);
 
     useEffect(() => {
         const getDetailSerie = async () => {
