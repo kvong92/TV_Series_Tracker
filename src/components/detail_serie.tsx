@@ -28,7 +28,7 @@ export default function DetailSerie() {
     return (
         <div>
             {serie_data ? (
-                <div className='flex flex-col gap-6 px-6 bg-stone-700 pb-10'>
+                <div className='flex flex-col gap-6 px-6 bg-stone-700 pb-10 pt-5'>
                     <SeriesPoster series={serie_data} genres={serie_data?.genres} />
                     <NextEpisode serie_data={serie_data} />
                     <DetailSeasons serie_data={serie_data} />

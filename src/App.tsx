@@ -6,6 +6,7 @@ import {PaginationButton} from "./components/PaginationButton";
 import {Pill} from "./components/Pill";
 import SearchBar from './components/SearchBar';
 
+
 export interface Series {
     id: number;
     name: string;
@@ -83,6 +84,8 @@ export default function App() {
     const [allGenres, setAllGenres] = React.useState<Genre[]>([])
     const [trendingSeries, setTrendingSeries] = React.useState<Series>()
     const categoriesRef = React.useRef<HTMLDivElement>(null)
+    
+    
     useEffect(() => {
         if (!location.has("page")) {
             location.set("page", "1");
