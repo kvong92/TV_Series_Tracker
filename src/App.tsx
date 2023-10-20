@@ -1,10 +1,9 @@
-import React, {MouseEvent, RefObject, useEffect} from 'react';
+import React, { MouseEvent, RefObject, useEffect } from 'react';
 import './App.css';
 import SeriesCard from "./components/SeriesCard";
 import {SeriesPoster} from "./components/SeriesPoster";
 import {useSearchParams} from "react-router-dom";
 import {PaginationButton} from "./components/PaginationButton";
-
 import {Pill} from "./components/Pill";
 import SearchBar from './components/SearchBar';
 
@@ -39,12 +38,13 @@ export const options = {
 };
 
 
-const getSeries = async (location: URLSearchParams, genreId: number = 0) : Promise<Series[]> => {
+const getSeries = async (location: URLSearchParams, genreId: number = 0): Promise<Series[]> => {
     return await fetch(`https://api.themoviedb.org/3/tv/popular?language=en-US&page=${location.get("page")}${genreId > 0 ? `&with_genres=${genreId}` : ""}`, options)
         .then(response => response.json())
         .then(data => data.results)
         .catch(error => console.log(error))
 }
+
 
 const getSeriesBySearch = async (location: URLSearchParams) => {
     return await fetch(`https://api.themoviedb.org/3/search/tv?include_adult=true&language=en-US&page=${location.get("page")}&query=${location.get("search")}`, options)
@@ -53,15 +53,15 @@ const getSeriesBySearch = async (location: URLSearchParams) => {
         .catch(error => console.log(error))
 }
 
-const getGenres = async () : Promise<Genre[]> => {
+const getGenres = async (): Promise<Genre[]> => {
     return await fetch('https://api.themoviedb.org/3/genre/tv/list?language=en', options)
         .then(response => response.json())
         .then(data => data.genres)
         .catch(error => console.log(error))
 }
 
-const getTrendingSeries = async (location: URLSearchParams) : Promise<Series[]> => {
-    return await fetch(`https://api.themoviedb.org/3/trending/tv/week?language=en-US&page=${Number(location.get("page")) <= 20 ? 1 : Math.floor(Number(location.get("page"))/20) + 1}`, options)
+const getTrendingSeries = async (location: URLSearchParams): Promise<Series[]> => {
+    return await fetch(`https://api.themoviedb.org/3/trending/tv/week?language=en-US&page=${Number(location.get("page")) <= 20 ? 1 : Math.floor(Number(location.get("page")) / 20) + 1}`, options)
         .then(response => response.json())
         .then(data => data.results)
         .catch(error => console.log(error))
@@ -75,7 +75,7 @@ export const onClickGenre = (e: MouseEvent<HTMLElement>, categoriesRef: RefObjec
     location.set("page", "1");
     location.delete("search");
     setLocation(location);
-    if (categoriesRef && categoriesRef.current) categoriesRef.current.scrollIntoView({behavior: "smooth"})
+    if (categoriesRef && categoriesRef.current) categoriesRef.current.scrollIntoView({ behavior: "smooth" })
 }
 
 export default function App() {
@@ -94,7 +94,7 @@ export default function App() {
             setLocation(location);
         }
         getGenres().then(genres => setAllGenres(genres))
-        getTrendingSeries(location).then(series => setTrendingSeries(series[(Number(location.get("page")) - 1)%20]))
+        getTrendingSeries(location).then(series => setTrendingSeries(series[(Number(location.get("page")) - 1) % 20]))
         if (location.has("search")) {
             getSeriesBySearch(location).then(series => setAllSeries(series))
             return
@@ -113,13 +113,14 @@ export default function App() {
                 )
             }
             <SearchBar />
-            { !location.has('search') && <div className="flex w-full gap-5 whitespace-nowrap flex-wrap pt-0 pb-10" id="genres" ref={categoriesRef}>
+            {!location.has('search') && <div className="flex w-full gap-5 whitespace-nowrap flex-wrap pt-0 pb-10" id="genres" ref={categoriesRef}>
                 <Pill text="All" className={!location.has("genre") ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, 0, location, setLocation)} />
                 {
                     allGenres.map((genre) => (
-                        <Pill text={genre.name} className={genre.id === Number(location.get("genre")) ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef,genre.id, location, setLocation)} />
+                        <Pill text={genre.name} className={genre.id === Number(location.get("genre")) ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, genre.id, location, setLocation)} />
                     ))
                 }
+
             </div>}
             <div className="grid sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5  gap-8 justify-center">
                 {allSeries.map((series) => (
