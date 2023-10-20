@@ -6,6 +6,7 @@ import App from './App';
 import DetailSerie from './components/detail_serie';
 import Connexion from './components/connexion';
 import Inscription from './components/inscription';
+import Followed from './components/FollowedSeries';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
             <Route path="/series/:serie_id" element={<DetailSerie />} />
             <Route path="/connexion" element={<Connexion />} />
             <Route path="/inscription" element={<Inscription />} />
+            <Route path="/followed" element={<Followed />} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>

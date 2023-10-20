@@ -17,5 +17,3 @@ export function Pill({text = "", url = "", onClick = null, className=""} : PillP
         <span className={`rounded-xl bg-gray-100 py-1 px-3 text-black ${className} ${onClick != null ? "cursor-pointer" : ""}`} onClick={onClick != null ? onClick : undefined}>{text}</span>
     );
 }
-
-
