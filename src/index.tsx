@@ -6,6 +6,9 @@ import App from './App';
 import DetailSerie from './components/detail_serie';
 import Connexion from './components/connexion';
 import Inscription from './components/inscription';
+import { dbConnect } from './Firebase/firebase';
+
+export const appFirebase = dbConnect();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
