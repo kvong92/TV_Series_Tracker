@@ -113,7 +113,7 @@ export default function App() {
                 )
             }
             <button>
-                <a href="/followed-series">Followed Series</a>
+                <a href="/followed">Followed Series</a>
             </button>
             <SearchBar />
             { !location.has('search') && <div className="flex w-full gap-5 whitespace-nowrap flex-wrap pt-0 pb-10" id="genres" ref={categoriesRef}>
