@@ -3,6 +3,7 @@ import FollowButton from "./FollowButton";
 import {Genre, onClickGenre, Series} from "../App";
 import {Pill} from "./Pill";
 import {useSearchParams} from "react-router-dom";
+import Rating from "./Rating";
 
 interface SeriesCardProps {
     categoriesRef: React.RefObject<HTMLDivElement>,

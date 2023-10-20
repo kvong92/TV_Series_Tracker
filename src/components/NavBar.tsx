@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { appFirebase } from '../index';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
+import Rating from './Rating';
 
 function NavBar() {
     const db = getFirestore(appFirebase);
@@ -20,18 +21,22 @@ function NavBar() {
     }
 
     return (
-        <div className="pr-8 md:block hidden">
-            {LoggedIn &&
-                <div>
-                    <a href="/profile" className="p-4">Profile</a>
-                    <a href="/signout" className="p-4" >Déconnexion</a>
-                </div>}
-            {!LoggedIn &&
-                <div>
-                    <a href="/connexion" className="p-4">Connexion</a>
-                    <a href="/inscription" className="p-4">Inscription</a>
-                </div>}
-        </div>
+        <>
+            <div className="pr-8 md:block hidden">
+
+                {LoggedIn &&
+                    <div>
+                        <a href="/profile" className="p-4">Profile</a>
+                        <a href="/signout" className="p-4" >Déconnexion</a>
+                    </div>}
+                {!LoggedIn &&
+                    <div>
+                        <a href="/connexion" className="p-4">Connexion</a>
+                        <a href="/inscription" className="p-4">Inscription</a>
+                    </div>}
+            </div>
+        </>
+
     );
 }
 

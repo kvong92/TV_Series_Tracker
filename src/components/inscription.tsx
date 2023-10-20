@@ -127,7 +127,12 @@ export default function Inscription() {
         <div>
             <button type="submit" className="bg-yellow-300 rounded-lg py-2.5 px-6 h-10 font-bold">SUBMIT</button>
         </div>
-        <p className='text-white'>Vous avez déjà un compte ? <Link to="/connexion" className='hover:underline'>connectez-vous !</Link></p>
+        <div className="flex flex-row gap-2 justify-center items-center">
+                <p className="text-white">Vous avez déjà un compte ?</p>
+            </div>
+            <div className="flex flex-row gap-2 justify-center items-center">
+                <a href="/connexion" className="text-white text-align-center"><span className='underline w-full'>Connectez-vous !</span></a>
+            </div>
       </form>
     );
   }

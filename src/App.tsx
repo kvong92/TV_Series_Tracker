@@ -6,7 +6,6 @@ import { useSearchParams } from "react-router-dom";
 import { PaginationButton } from "./components/PaginationButton";
 import { Pill } from "./components/Pill";
 
-
 export interface Series {
     id: number;
     name: string;
