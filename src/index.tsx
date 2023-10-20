@@ -5,6 +5,9 @@ import './index.css';
 import App from './App';
 import DetailSerie from './components/detail_serie';
 import Calendrier from './components/calendar';
+import Connexion from './components/connexion';
+import Inscription from './components/inscription';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -16,6 +19,8 @@ root.render(
             <Route path="*" element={<App />} />
             <Route path="/series/:serie_id" element={<DetailSerie />} />
             <Route path="/calendrier" element={<Calendrier />} />
+            <Route path="/connexion" element={<Connexion />} />
+            <Route path="/inscription" element={<Inscription />} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>

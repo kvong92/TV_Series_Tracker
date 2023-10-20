@@ -2,15 +2,13 @@ import show_password from '../images/show-password.svg';
 import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
 import { connectUser, dbConnect } from '../Firebase/firebase'
-
+import { Link } from "react-router-dom";
 
 export default function Connexion() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
-    
 
     useEffect(() => {
         setError('');
@@ -33,8 +31,7 @@ export default function Connexion() {
         event.preventDefault();
 
         const db = dbConnect();
-        const message = await connectUser(db, email, password);
-
+        const message = await connectUser(email, password);
         const errorMessages:any = {
             'auth/email-already-in-use': 'Email déjà utilisé. Veuillez réessayer.',
             'auth/invalid-email': 'Email invalide. Veuillez réessayer.',
@@ -80,10 +77,8 @@ export default function Connexion() {
             <div>
                 <button type="submit" className="bg-yellow-300 rounded-lg py-2.5 px-6 h-10 font-bold">SUBMIT</button>
             </div>
-            <p className='text-white'>Vous n'avez pas encore de compte ? <span className='underline'>inscrivez-vous !</span></p>
+            <p className='text-white'>Vous n'avez pas encore de compte ? <Link to="/inscription" className='hover:underline'>inscrivez-vous !</Link></p>
 
         </form>
     );
 }
-
-
