@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import EditProfile from './pages/EditProfile'
 import DetailSerie from './components/detail_serie';
+import Calendrier from './components/calendar';
 import Connexion from './components/connexion';
 import Inscription from './components/inscription';
 import { dbConnect } from './Firebase/firebase';
@@ -38,10 +39,11 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/series/:serie_id" element={<DetailSerie />} />
-
+        <Route path="/calendrier" element={<Calendrier />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/profile" element={<EditProfile />} />
         <Route path='/signout' element={<SignOutPage />} />
+        <Route path="*" element={<App />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

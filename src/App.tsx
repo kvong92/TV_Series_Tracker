@@ -1,11 +1,10 @@
 import React, { MouseEvent, RefObject, useEffect } from 'react';
 import './App.css';
 import SeriesCard from "./components/SeriesCard";
-import { SeriesPoster } from "./components/SeriesPoster";
-import { useSearchParams } from "react-router-dom";
-import { PaginationButton } from "./components/PaginationButton";
-
-import { Pill } from "./components/Pill";
+import {SeriesPoster} from "./components/SeriesPoster";
+import {useSearchParams} from "react-router-dom";
+import {PaginationButton} from "./components/PaginationButton";
+import {Pill} from "./components/Pill";
 import SearchBar from './components/SearchBar';
 
 export interface Series {
@@ -121,6 +120,7 @@ export default function App() {
                         <Pill text={genre.name} className={genre.id === Number(location.get("genre")) ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, genre.id, location, setLocation)} />
                     ))
                 }
+
             </div>}
             <div className="grid sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5  gap-8 justify-center">
                 {allSeries.map((series) => (
