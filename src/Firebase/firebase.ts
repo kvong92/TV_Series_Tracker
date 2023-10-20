@@ -1,6 +1,6 @@
-import { FirebaseApp, initializeApp } from 'firebase/app';
-import { browserSessionPersistence, setPersistence, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
+import {initializeApp} from 'firebase/app';
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import {collection, Firestore, getDocs} from 'firebase/firestore/lite';
 
 export function dbConnect() {
     const firebaseConfig = {
@@ -12,10 +12,7 @@ export function dbConnect() {
         appId: "1:312498893101:web:f38243129069d38acc63a4"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    return db;
+    return initializeApp(firebaseConfig);
 }
 
 export async function connectUser(email: string, password: string) {
@@ -24,8 +21,7 @@ export async function connectUser(email: string, password: string) {
         await signInWithEmailAndPassword(auth, email, password);
         return "User logged in successfully";
     } catch (error: any) {
-        const errorMessage = error.message;
-        return errorMessage;
+        return error.message;
     }
 }
 
@@ -36,8 +32,7 @@ export async function createUser(db: Firestore, email: string, password: string)
         await createUserWithEmailAndPassword(auth, email, password);
         return "User created successfully";
     } catch (error: any) {
-        const errorMessage = error.message;
-        return errorMessage;
+        return error.message;
     }
 }
 
@@ -45,7 +40,6 @@ export async function getUserSession() {
     const auth = getAuth();
     const user = auth.currentUser;
     if (user) {
-        // console.log(user);
         return user;
     }
     else {
@@ -57,9 +51,7 @@ export async function getUsers(db: Firestore) {
     const usersCol = collection(db, 'users');
     await getDocs(usersCol)
         .then((snapshot) => {
-            const res = snapshot.docs.map(doc => doc.data());
-            // console.log(res);
-            return res;
+            return snapshot.docs.map(doc => doc.data());
         })
 }
 

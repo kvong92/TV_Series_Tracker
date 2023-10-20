@@ -1,5 +1,4 @@
 import React, {MouseEvent, RefObject, useEffect} from 'react';
-import './App.css';
 import SeriesCard from "./components/SeriesCard";
 import {SeriesPoster} from "./components/SeriesPoster";
 import {useSearchParams} from "react-router-dom";
@@ -91,7 +90,7 @@ export default function App() {
             getSeries(location).then(series => setAllSeries(series))
         }
         getTrendingSeries(location).then(series => setTrendingSeries(series[(Number(location.get("page")) - 1)%20]))
-    }, [location])
+    }, [location, setLocation])
     return (
         <div className="flex flex-col p-5">
             {
@@ -100,10 +99,10 @@ export default function App() {
                 )
             }
             <div className="flex w-full gap-5 whitespace-nowrap flex-wrap py-10" id="genres" ref={categoriesRef}>
-                <Pill text="All" className={!location.has("genre") ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, 0, location, setLocation)} />
+                <Pill text="All" className={!location.has("genre") ? "!bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, 0, location, setLocation)} />
                 {
                     allGenres.map((genre) => (
-                        <Pill text={genre.name} className={genre.id === Number(location.get("genre")) ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef,genre.id, location, setLocation)} />
+                        <Pill key={`App-genres-${genre.id}`} text={genre.name} className={genre.id === Number(location.get("genre")) ? "!bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef,genre.id, location, setLocation)} />
                     ))
                 }
             </div>
