@@ -4,9 +4,7 @@ import NextEpisode from './nextEpisode';
 import { getSeriesDetails } from './SeriesPoster';
 import { SeriesPoster } from './SeriesPoster';
 import DetailSeasons from './DetailSeasons';
-
-
-
+import Rating from './Rating';
 
 export default function DetailSerie() {
 
@@ -30,6 +28,7 @@ export default function DetailSerie() {
             {serie_data ? (
                 <div className='flex flex-col gap-6 px-6 bg-stone-700 pb-10 pt-5'>
                     <SeriesPoster series={serie_data} genres={serie_data?.genres} />
+                    <Rating idSerie={serie_id}/>
                     <NextEpisode serie_data={serie_data} />
                     <DetailSeasons serie_data={serie_data} />
                 </div>
