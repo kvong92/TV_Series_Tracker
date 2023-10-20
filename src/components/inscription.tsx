@@ -60,6 +60,7 @@ export default function Inscription() {
                 };
                 await addDoc(usersCollection, userInfo);
             }
+
         }
     }
 

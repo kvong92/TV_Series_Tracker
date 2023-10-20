@@ -1,11 +1,11 @@
 import React, { MouseEvent, RefObject, useEffect } from 'react';
 import './App.css';
 import SeriesCard from "./components/SeriesCard";
-import { SeriesPoster } from "./components/SeriesPoster";
-import { useSearchParams } from "react-router-dom";
-import { PaginationButton } from "./components/PaginationButton";
-import { Pill } from "./components/Pill";
+import {SeriesPoster} from "./components/SeriesPoster";
+import {useSearchParams} from "react-router-dom";
+import {PaginationButton} from "./components/PaginationButton";
 
+import {Pill} from "./components/Pill";
 
 export interface Series {
     id: number;
@@ -37,7 +37,8 @@ export const options = {
     }
 };
 
-const getSeries = async (location: URLSearchParams, genreId: number = 0): Promise<Series[]> => {
+
+const getSeries = async (location: URLSearchParams, genreId: number = 0) : Promise<Series[]> => {
     return await fetch(`https://api.themoviedb.org/3/tv/popular?language=en-US&page=${location.get("page")}${genreId > 0 ? `&with_genres=${genreId}` : ""}`, options)
         .then(response => response.json())
         .then(data => data.results)
@@ -58,6 +59,7 @@ const getTrendingSeries = async (location: URLSearchParams): Promise<Series[]> =
         .catch(error => console.log(error))
 }
 
+
 export const onClickGenre = (e: MouseEvent<HTMLElement>, categoriesRef: RefObject<HTMLDivElement> | null = null, genreId: number, location: URLSearchParams, setLocation: (location: URLSearchParams) => void) => {
     e.preventDefault();
     e.stopPropagation();
@@ -77,6 +79,7 @@ export default function App() {
         if (!location.has("page")) {
             location.set("page", "1");
         }
+
         if (location.has("genre") && Number(location.get("genre")) === 0) {
             location.delete("genre");
             setLocation(location);

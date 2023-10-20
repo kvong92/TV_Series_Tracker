@@ -4,11 +4,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import EditProfile from './pages/EditProfile'
-import Connexion from './components/connexion'
+import DetailSerie from './components/detail_serie';
+import Connexion from './components/connexion';
 import Inscription from './components/inscription';
 import { dbConnect } from './Firebase/firebase';
 import SignOutPage from './pages/SignOutPage';
-
+        
 export const appFirebase = dbConnect();
 
 const root = ReactDOM.createRoot(
@@ -36,6 +37,8 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/inscription" element={<Inscription />} />
+        <Route path="/series/:serie_id" element={<DetailSerie />} />
+
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/profile" element={<EditProfile />} />
         <Route path='/signout' element={<SignOutPage />} />
