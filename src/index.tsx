@@ -13,6 +13,7 @@ root.render(
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<App />} />
+            <Route path="*" element={<App />} />
             <Route path="/series/:serie_id" element={<DetailSerie />} />
             <Route path="/calendrier" element={<Calendrier />} />
         </Routes>
