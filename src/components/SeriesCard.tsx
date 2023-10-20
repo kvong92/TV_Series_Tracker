@@ -21,7 +21,7 @@ export default function SeriesCard({ categoriesRef, series, genres }: SeriesCard
                     <Pill text={series.vote_average.toFixed(1).toString()} className="absolute top-2 left-2" />
                 }
             </div>
-            <span className="text-xl font-bold py-2">{series.name}</span>
+            <span className="text-white text-xl font-bold py-2">{series.name}</span>
             <div className="flex gap-2 flex-wrap">
                 {series.genre_ids.map((genreId) => {
                     const genre = genres.find((genre) => genre.id === genreId);

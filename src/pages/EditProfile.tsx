@@ -16,6 +16,7 @@ export default function EditProfile() {
 
     const auth = getAuth();
     const user = auth.currentUser;
+    console.log(user);
 
     async function handleEmailUpdate(newEmail: string) {
         if (user && user.email) {
