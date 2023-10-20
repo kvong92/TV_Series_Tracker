@@ -5,9 +5,7 @@ import { getSeriesDetails } from './SeriesPoster';
 import { SeriesPoster } from './SeriesPoster';
 import DetailSeasons from './DetailSeasons';
 import {useFirebaseAuth} from "./FirebaseAuthProvider";
-
-
-
+import Rating from './Rating';
 
 export default function DetailSerie() {
 
@@ -37,12 +35,13 @@ export default function DetailSerie() {
     return (
         <div>
             {serie_data ? (
-                <div className='flex flex-col gap-6 px-6 bg-stone-700 pb-10'>
+                <div className='flex flex-col gap-6 px-6 bg-stone-700 pb-10 pt-5'>
                     <SeriesPoster series={serie_data} genres={serie_data?.genres} />
                     {
-                        isFollowed &&
+                        isFollowed &&            
                     <NextEpisode serie_data={serie_data} />
                     }
+                    <Rating idSerie={serie_id}/>
                     <DetailSeasons serie_data={serie_data} />
                 </div>
             ): null}

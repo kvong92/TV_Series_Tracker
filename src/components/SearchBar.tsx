@@ -31,7 +31,7 @@ export const SearchBar: React.FC = () => {
           onChange={(e) => setQuery(e.target.value)}
           type="search"
           placeholder="Type to search..."
-          className="rounded-full pl-10 w-full h-full px-3 py-2 bg-inherit border border-gray-300 shadow-sm focus:outline-none focus:border-blue-400"
+          className="rounded-full pl-10 w-full h-full px-3 py-2 bg-inherit border border-gray-300 shadow-sm focus:outline-none focus:border-blue-400 bg-white"
         />
     </form>
   );
