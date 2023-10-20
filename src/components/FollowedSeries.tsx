@@ -24,10 +24,12 @@ export default function FollowedSeries() {
 
     return (
         <div>
-        <h1>Followed Series</h1>
-        <ul>
-            {series}
-        </ul>
+            <h1>Followed Series</h1>
+            <ul>
+                <li>
+                    {series}
+                </li>
+            </ul>
         </div>
     );
 }
