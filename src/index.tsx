@@ -16,11 +16,11 @@ root.render(
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<App />} />
-            <Route path="*" element={<App />} />
             <Route path="/series/:serie_id" element={<DetailSerie />} />
             <Route path="/calendrier" element={<Calendrier />} />
             <Route path="/connexion" element={<Connexion />} />
             <Route path="/inscription" element={<Inscription />} />
+            <Route path="*" element={<App />} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>

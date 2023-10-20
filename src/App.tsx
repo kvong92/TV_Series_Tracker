@@ -5,8 +5,6 @@ import {SeriesPoster} from "./components/SeriesPoster";
 import {useSearchParams} from "react-router-dom";
 import {PaginationButton} from "./components/PaginationButton";
 import {Pill} from "./components/Pill";
-
-import {Pill} from "./components/Pill";
 import SearchBar from './components/SearchBar';
 
 export interface Series {
