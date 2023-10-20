@@ -22,8 +22,8 @@ export const SearchBar: React.FC = () => {
   }
 
   return (
-    <form className="py-9 w-full h-full rounded-full" onSubmit={onSearch}>
-        <button type='submit' className="rounded-full p-4 focus:outline-none text-black absolute">
+    <form className="py-9 w-full h-full" onSubmit={onSearch}>
+        <button type='submit' className="rounded-full p-3 focus:outline-none text-black absolute">
           <BiSearch />
         </button>
         <input
