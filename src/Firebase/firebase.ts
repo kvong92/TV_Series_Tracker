@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDocs, Firestore } from 'firebase/firestore/lite';
+import {initializeApp} from 'firebase/app';
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from "firebase/auth";
+import {collection, Firestore, getDocs} from 'firebase/firestore/lite';
 
 export function dbConnect() {
     const firebaseConfig = {
@@ -11,8 +11,7 @@ export function dbConnect() {
         messagingSenderId: "312498893101",
         appId: "1:312498893101:web:f38243129069d38acc63a4"
     };
-    const app = initializeApp(firebaseConfig);
-    return app;
+    return initializeApp(firebaseConfig);
 }
 
 export async function connectUser(email: string, password: string) {
@@ -21,8 +20,7 @@ export async function connectUser(email: string, password: string) {
         await signInWithEmailAndPassword(auth, email, password);
         return "User logged in successfully";
     } catch (error: any) {
-        const errorMessage = error.message;
-        return errorMessage;
+        return error.message;
     }
 }
 
@@ -33,8 +31,7 @@ export async function createUser(db: Firestore, email: string, password: string)
         await createUserWithEmailAndPassword(auth, email, password);
         return "User created successfully";
     } catch (error: any) {
-        const errorMessage = error.message;
-        return errorMessage;
+        return error.message;
     }
 }
 
@@ -53,7 +50,6 @@ export async function getUsers(db: Firestore) {
     const usersCol = collection(db, 'users');
     await getDocs(usersCol)
         .then((snapshot) => {
-            const res = snapshot.docs.map(doc => doc.data());
-            return res;
+            return snapshot.docs.map(doc => doc.data());
         })
 }

@@ -1,12 +1,11 @@
 import show_password from '../images/show-password.svg';
 import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
-import { createUser, dbConnect, getUserSession } from '../Firebase/firebase'
+import { createUser } from '../Firebase/firebase'
 import { Link } from "react-router-dom";
 import { appFirebase } from '../index';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
-
 
 export default function Inscription() {
 
@@ -31,8 +30,6 @@ export default function Inscription() {
             setError('Le mot de passe et la confirmation ne correspondent pas. Veuillez réessayer.');
             return;
         }
-
-        // const db = dbConnect();
         const message = await createUser(db, email, password);
 
          const errorMessages:any = {
@@ -90,7 +87,7 @@ export default function Inscription() {
 
     return (
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 bg-stone-700 w-1/4 items-center p-2.5 shrink-0 h-screen">
-        <h1 className="text-3xl font-bold text-white text-4xl">Register</h1>
+        <h1 className="font-bold text-white text-4xl">Register</h1>
         <div className="w-full">
             <input 
             id="email" 

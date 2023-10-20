@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { getSeriesEpisodes } from "./SeriesPoster";
 import { formatDate } from "./nextEpisode";
-import "./DetailSeasons.css";
 import { Pill } from "./Pill";
+
+async function getSeasons(serie_data: any) {
+  let seasons = [];
+  for (let i = 1; i <= serie_data.number_of_seasons; i++) {
+    const data: any = await getSeriesEpisodes(serie_data.id, i);
+    const array = {
+      season: i,
+      episodes: data.episodes,
+    };
+    seasons.push(array);
+  }
+  return seasons
+}
 
 export default function DetailSeasons({ serie_data }: any) {
   const [seasons, setSeasons] = useState<any>(null);
-
-  async function getSeasons() {
-    let seasons = [];
-    for (let i = 1; i <= serie_data.number_of_seasons; i++) {
-      const data: any = await getSeriesEpisodes(serie_data.id, i);
-      const array = {
-        season: i,
-        episodes: data.episodes,
-      };
-      seasons.push(array);
-    }
-    setSeasons(seasons);
-  }
-
-  useEffect(() => {
-    getSeasons();
-  }, []);
+    useEffect(() => {
+        getSeasons(serie_data).then((data) => { setSeasons(data) });
+    } , []);
 
   const now = new Date();
 
@@ -35,11 +33,11 @@ export default function DetailSeasons({ serie_data }: any) {
             season.episodes && season.episodes.length > 0 && (
               <div key={season.season} className="flex flex-col gap-4">
                 <h1 className="text-white text-xl font-semibold">{`Saison ${season.season}`}</h1>
-                <div className="my-container__season__episodes">
+                <div className="flex flex-row w-full overflow-x-scroll h-auto gap-5">
                   {season.episodes
                     .filter((episode: any) => new Date(episode.air_date) <= now)
                     .map((episode: any) => (
-                      <div key={episode.id} className="my-container__season__episodes__episode">
+                      <div key={episode.id} className="flex flex-col basis-1/3 gap-5 max-w-md flex-shrink-0">
                         <div className="relative">
                           <img
                             src={

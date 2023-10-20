@@ -1,5 +1,4 @@
-import React, { MouseEvent, RefObject, useEffect } from 'react';
-import './App.css';
+import React, {MouseEvent, RefObject, useEffect} from 'react';
 import SeriesCard from "./components/SeriesCard";
 import {SeriesPoster} from "./components/SeriesPoster";
 import {useSearchParams} from "react-router-dom";
@@ -104,7 +103,7 @@ export default function App() {
         } else {
             getSeries(location).then(series => setAllSeries(series))
         }
-    }, [location])
+    }, [location, setLocation])
     return (
         <div className="flex flex-col p-5">
             {

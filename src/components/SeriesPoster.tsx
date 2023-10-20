@@ -103,7 +103,7 @@ export function SeriesPoster ({ series }: SeriesPosterProps) {
     return (
             <a className="relative w-full cursor-default" href={`/series/${series.id}`}>
                 <img className="rounded-md w-full" src={`https://image.tmdb.org/t/p/original${series.backdrop_path}`} alt={series.name} />
-                <FollowButton />
+                <FollowButton seriesId={series.id} />
                 {series.vote_average &&
                     <Pill text={series.vote_average.toFixed(1).toString()} className="absolute top-2 left-2" />
                 }
@@ -117,7 +117,7 @@ export function SeriesPoster ({ series }: SeriesPosterProps) {
                             <Pill text={`${seriesDetails.number_of_seasons} season${seriesDetails.number_of_seasons > 1 ? 's': ''}`} />
                             <Pill text={`${seriesDetails.number_of_episodes} episode${seriesDetails.number_of_episodes > 1 ? 's': ''}`} />
                             {seriesDetails.genres.map((genre) =>
-                                <Pill text={genre.name} url={`/?genre=${genre.id}#genres`} />
+                                <Pill text={genre.name} url={`/?genre=${genre.id}#genres`} key={`SeriesPoster-${genre.id}`} />
                             )}
                             <Pill text={seriesDetails.first_air_date.split('-')[0]} />
                         </div>

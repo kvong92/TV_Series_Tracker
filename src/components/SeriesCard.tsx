@@ -16,7 +16,7 @@ export default function SeriesCard({ categoriesRef, series, genres }: SeriesCard
         <a className="flex flex-col hover:scale-105 transition cursor-default" href={`/series/${series.id}`}>
             <div className="relative">
                 <img className="rounded-md w-full" src={`https://image.tmdb.org/t/p/w500${series.poster_path}`} alt={series.name} />
-                <FollowButton />
+                <FollowButton seriesId={series.id} />
                 {series.vote_average &&
                     <Pill text={series.vote_average.toFixed(1).toString()} className="absolute top-2 left-2" />
                 }
@@ -26,7 +26,7 @@ export default function SeriesCard({ categoriesRef, series, genres }: SeriesCard
                 {series.genre_ids.map((genreId) => {
                     const genre = genres.find((genre) => genre.id === genreId);
                     if (genre)
-                    return <Pill text={genre.name} onClick={(e) => onClickGenre(e, categoriesRef, genre.id, location, setLocation)} />
+                    return <Pill key={`SeriesCard-genres-${genre.id}`} text={genre.name} onClick={(e) => onClickGenre(e, categoriesRef, genre.id, location, setLocation)} />
                 } )}
             </div>
         </a>
