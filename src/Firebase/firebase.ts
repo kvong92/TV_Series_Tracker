@@ -1,6 +1,6 @@
-import { FirebaseApp, initializeApp } from 'firebase/app';
-import { browserSessionPersistence, setPersistence, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, Firestore } from 'firebase/firestore/lite';
 
 export function dbConnect() {
     const firebaseConfig = {
@@ -11,11 +11,8 @@ export function dbConnect() {
         messagingSenderId: "312498893101",
         appId: "1:312498893101:web:f38243129069d38acc63a4"
     };
-
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    return db;
+    return app;
 }
 
 export async function connectUser(email: string, password: string) {
@@ -45,7 +42,6 @@ export async function getUserSession() {
     const auth = getAuth();
     const user = auth.currentUser;
     if (user) {
-        // console.log(user);
         return user;
     }
     else {
@@ -58,16 +54,6 @@ export async function getUsers(db: Firestore) {
     await getDocs(usersCol)
         .then((snapshot) => {
             const res = snapshot.docs.map(doc => doc.data());
-            // console.log(res);
             return res;
         })
-}
-
-export async function signOutUser() {
-    const auth = getAuth();
-    await auth.signOut().then(() => {
-        console.log("User signed out successfully");
-    }).catch((error) => {
-        console.log(error);
-    });
 }
