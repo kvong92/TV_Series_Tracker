@@ -3,10 +3,15 @@ import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
 import { createUser } from '../Firebase/firebase'
 import { Link } from "react-router-dom";
-import {getFirestore} from "firebase/firestore";
-import {appFirebase} from "../index";
+import { appFirebase } from '../index';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
 
 export default function Inscription() {
+
+    const db = getFirestore(appFirebase);
+    const auth = getAuth();
+    const user = auth.currentUser;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,8 +30,6 @@ export default function Inscription() {
             setError('Le mot de passe et la confirmation ne correspondent pas. Veuillez réessayer.');
             return;
         }
-
-        const db = getFirestore(appFirebase);
         const message = await createUser(db, email, password);
 
          const errorMessages:any = {
@@ -43,6 +46,18 @@ export default function Inscription() {
         } else {
             setSuccess('Vous êtes inscrit !');
             setError('');
+            const authInstance = getAuth();
+            const user = authInstance.currentUser;
+            if (user) {
+                const usersCollection = collection(db, 'users');
+                const userInfo = {
+                    uid: user.uid,
+                    email: user.email,
+                    enableNotification: false,
+                };
+                await addDoc(usersCollection, userInfo);
+            }
+
         }
     }
 
@@ -114,4 +129,3 @@ export default function Inscription() {
       </form>
     );
   }
-  

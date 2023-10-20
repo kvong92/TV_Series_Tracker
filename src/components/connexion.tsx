@@ -1,8 +1,11 @@
 import show_password from '../images/show-password.svg';
 import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
-import { connectUser, dbConnect } from '../Firebase/firebase'
+import { connectUser } from '../Firebase/firebase'
+import { getFirestore } from 'firebase/firestore/lite';
+import { appFirebase } from '../index';
 import { Link } from "react-router-dom";
+
 
 export default function Connexion() {
     const [email, setEmail] = useState('');
@@ -30,7 +33,6 @@ export default function Connexion() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const db = dbConnect();
         const message = await connectUser(email, password);
         const errorMessages:any = {
             'auth/email-already-in-use': 'Email déjà utilisé. Veuillez réessayer.',

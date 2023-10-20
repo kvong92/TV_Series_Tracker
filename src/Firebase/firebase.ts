@@ -11,7 +11,6 @@ export function dbConnect() {
         messagingSenderId: "312498893101",
         appId: "1:312498893101:web:f38243129069d38acc63a4"
     };
-
     return initializeApp(firebaseConfig);
 }
 
@@ -53,13 +52,4 @@ export async function getUsers(db: Firestore) {
         .then((snapshot) => {
             return snapshot.docs.map(doc => doc.data());
         })
-}
-
-export async function signOutUser() {
-    const auth = getAuth();
-    await auth.signOut().then(() => {
-        console.log("User signed out successfully");
-    }).catch((error) => {
-        console.log(error);
-    });
 }

@@ -8,7 +8,7 @@ interface SeriesPosterProps {
     genres: Genre[]
 }
 
-interface SeriesDetails extends Series {
+export interface SeriesDetails extends Series {
     created_by: {
         id: number;
         credit_id: string;
@@ -16,6 +16,33 @@ interface SeriesDetails extends Series {
         gender: number;
         profile_path: string;
     }[],
+    next_episode_to_air: {
+        air_date: string;
+        episode_number: number;
+        episode_type: string;
+        id: number;
+        name: string;
+        overview: string;
+        production_code: string;
+        season_number: number;
+        show_id: number;
+        still_path: string;
+        vote_average: number;
+        vote_count: number;
+    },
+    last_episode_to_air: {
+        air_date: string;
+        episode_number: number;
+        id: number;
+        name: string;
+        overview: string;
+        production_code: string;
+        season_number: number;
+        show_id: number;
+        still_path: string;
+        vote_average: number;
+        vote_count: number;
+    },
     episode_run_time: number[],
     homepage: string,
     networks: {
@@ -71,6 +98,7 @@ export function SeriesPoster ({ series }: SeriesPosterProps) {
     const [seriesDetails, setSeriesDetails] = useState<SeriesDetails>()
     useEffect(() => {
         getSeriesDetails(series.id).then((series) => setSeriesDetails(series))
+
     } , [series])
     return (
             <a className="relative w-full cursor-default" href={`/series/${series.id}`}>
