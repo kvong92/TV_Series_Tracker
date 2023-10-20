@@ -1,29 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { getSeriesDetails, SeriesDetails, getSeriesEpisodes } from "./SeriesPoster";
+import { getSeriesDetails, getSeriesEpisodes } from "./SeriesPoster";
 import { Pill } from "./Pill";
+import {useFirebaseAuth} from "./FirebaseAuthProvider";
 
 export default function Calendrier() {
     const [list_episodes, setListEpisodes] = useState<any[]>([]);
-
-    const array_id_series = [
-        84958, // Loki
-        81329, // Chronicles of the sun
-        205715, // Gen V
-        226773,
-        206559,
-    ];
-
+    const [array_id_series, setArrayIdSeries] = useState<any[]>([]);
+    const userContext = useFirebaseAuth();
+    useEffect(() => {
+        if (userContext.userDoc) {
+            const userDocData = userContext.userDoc?.data();
+            setArrayIdSeries(userDocData?.followedSeries ?? []);
+        }
+    }, [userContext.userDoc]);
     useEffect(() => {
         const fetchData = async () => {
             const episodesData: any[] = [];
-
             for (let i = 0; i < array_id_series.length; i++) {
                 const serieId = array_id_series[i];
                 const serie = await getSeriesDetails(serieId);
-
                 // Récupérer les épisodes de la saison en cours
+                if (!serie.next_episode_to_air) continue;
                 const episodes: any = await getSeriesEpisodes(serieId, serie.next_episode_to_air.season_number);
-
                 episodes.episodes.forEach((episode: any) => {
                     const episodeDate = new Date(episode.air_date);
                     const today = new Date();
@@ -45,12 +43,10 @@ export default function Calendrier() {
                 });
                 
             }
-
             setListEpisodes(episodesData);
         };
-
         fetchData();
-    }, []);
+    }, [array_id_series]);
 
     // Regrouper les séries par jour de la semaine
     const groupedEpisodes: { [key: string]: any[] } = {
@@ -62,7 +58,6 @@ export default function Calendrier() {
         "samedi": [],
         "dimanche": [],
     };
-
     list_episodes.forEach((episode) => {
         const nextEpisodeDate = new Date(episode.episode.air_date);
         const nextEpisodeDay = nextEpisodeDate.toLocaleString('fr-FR', { weekday: 'long' });

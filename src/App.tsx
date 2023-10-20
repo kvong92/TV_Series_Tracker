@@ -119,7 +119,7 @@ export default function App() {
                 <Pill text="All" className={!location.has("genre") ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, 0, location, setLocation)} />
                 {
                     allGenres.map((genre) => (
-                        <Pill text={genre.name} className={genre.id === Number(location.get("genre")) ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, genre.id, location, setLocation)} />
+                        <Pill key={`App-genres-${genre.id}`} text={genre.name} className={genre.id === Number(location.get("genre")) ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, genre.id, location, setLocation)} />
                     ))
                 }
 
