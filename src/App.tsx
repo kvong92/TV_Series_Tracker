@@ -109,7 +109,7 @@ export default function App() {
                 )
             }
             <SearchBar />
-            { !location.has('search') && <div className="flex w-full gap-5 whitespace-nowrap flex-wrap py-10" id="genres" ref={categoriesRef}>
+            { !location.has('search') && <div className="flex w-full gap-5 whitespace-nowrap flex-wrap pt-0 pb-10" id="genres" ref={categoriesRef}>
                 <Pill text="All" className={!location.has("genre") ? "bg-amber-200" : ""} onClick={(e) => onClickGenre(e, categoriesRef, 0, location, setLocation)} />
                 {
                     allGenres.map((genre) => (
