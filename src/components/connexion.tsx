@@ -2,12 +2,16 @@ import show_password from '../images/show-password.svg';
 import hide_password from '../images/hide-password.svg';
 import React, { useState, useEffect } from 'react';
 import { connectUser, dbConnect } from '../Firebase/firebase'
+import { getFirestore } from 'firebase/firestore/lite';
+import { appFirebase } from '../index';
 
 export default function Connexion() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+
+    const db = getFirestore(appFirebase);
 
     useEffect(() => {
         setError('');
@@ -29,7 +33,9 @@ export default function Connexion() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const db = dbConnect();
+        // const db = dbConnect();
+        // console.log("Connecting user | email = " + email + " | password = " + password);
+
         const message = await connectUser(email, password);
 
         if (message === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).'){

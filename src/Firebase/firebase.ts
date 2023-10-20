@@ -11,11 +11,8 @@ export function dbConnect() {
         messagingSenderId: "312498893101",
         appId: "1:312498893101:web:f38243129069d38acc63a4"
     };
-
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    return db;
+    return app;
 }
 
 export async function connectUser(email: string, password: string) {
@@ -33,6 +30,7 @@ export async function createUser(db: Firestore, email: string, password: string)
     const auth = getAuth();
 
     try {
+        console.log("Creating user | email = " + email + " | password = " + password);
         await createUserWithEmailAndPassword(auth, email, password);
         return "User created successfully";
     } catch (error: any) {
@@ -45,7 +43,6 @@ export async function getUserSession() {
     const auth = getAuth();
     const user = auth.currentUser;
     if (user) {
-        // console.log(user);
         return user;
     }
     else {
@@ -58,7 +55,6 @@ export async function getUsers(db: Firestore) {
     await getDocs(usersCol)
         .then((snapshot) => {
             const res = snapshot.docs.map(doc => doc.data());
-            // console.log(res);
             return res;
         })
 }
