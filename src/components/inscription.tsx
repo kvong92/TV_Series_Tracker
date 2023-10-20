@@ -5,7 +5,7 @@ import { createUser, dbConnect, getUserSession } from '../Firebase/firebase'
 import { Link } from "react-router-dom";
 import { appFirebase } from '../index';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { getAuth, updatePassword, EmailAuthProvider, reauthenticateWithCredential, verifyBeforeUpdateEmail } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 
 export default function Inscription() {

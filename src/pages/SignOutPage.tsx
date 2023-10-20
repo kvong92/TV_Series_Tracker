@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { appFirebase } from '../index';
 import { getFirestore } from 'firebase/firestore';
@@ -9,7 +8,6 @@ function SignOutPage() {
 
     const auth = getAuth();
     auth.signOut().then(() => {
-        console.log("User signed out successfully");
         setTimeout(() => {
             window.location.href = "/connexion";
         }, 5000);

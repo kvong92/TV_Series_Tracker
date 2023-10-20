@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import EditField from '../components/EditField';
 import { getAuth, updatePassword, EmailAuthProvider, reauthenticateWithCredential, verifyBeforeUpdateEmail } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { doc, setDoc } from "firebase/firestore";
-import { dbConnect } from '../Firebase/firebase'
+import { doc } from "firebase/firestore";
 import { getFirestore, collection, addDoc, updateDoc, getDocs } from 'firebase/firestore';
 
 export default function EditProfile() {
@@ -41,7 +40,6 @@ export default function EditProfile() {
     }
 
     async function handlePasswordUpdate(newPassword: string) {
-        console.log(newPassword);
         if (user && user.email) {
             const credential = EmailAuthProvider.credential(user.email, currentPassword);
             try {
@@ -51,11 +49,9 @@ export default function EditProfile() {
                         return "Le mot de passe a été modifié avec succès";
                     })
                     .catch((error: any) => {
-                        // console.error('Error updating password:', error);
                         setPasswordUpdateError(error.message);
                     });
             } catch (error: any) {
-                // console.error(error);
                 const messageError: any = setPasswordUpdateError(error.message);
                 const notify = () => toast("Erreur lors de la mise à jour du mot de passe");
                 notify();

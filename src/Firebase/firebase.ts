@@ -1,6 +1,6 @@
-import { FirebaseApp, initializeApp } from 'firebase/app';
-import { browserSessionPersistence, setPersistence, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, Firestore } from 'firebase/firestore/lite';
 
 export function dbConnect() {
     const firebaseConfig = {
@@ -30,7 +30,6 @@ export async function createUser(db: Firestore, email: string, password: string)
     const auth = getAuth();
 
     try {
-        console.log("Creating user | email = " + email + " | password = " + password);
         await createUserWithEmailAndPassword(auth, email, password);
         return "User created successfully";
     } catch (error: any) {
@@ -57,13 +56,4 @@ export async function getUsers(db: Firestore) {
             const res = snapshot.docs.map(doc => doc.data());
             return res;
         })
-}
-
-export async function signOutUser() {
-    const auth = getAuth();
-    await auth.signOut().then(() => {
-        console.log("User signed out successfully");
-    }).catch((error) => {
-        console.log(error);
-    });
 }

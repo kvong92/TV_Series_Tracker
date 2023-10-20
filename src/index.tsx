@@ -6,7 +6,6 @@ import App from './App';
 import EditProfile from './pages/EditProfile'
 import Connexion from './components/connexion'
 import Inscription from './components/inscription';
-import { signOutUser } from './Firebase/firebase'
 import { dbConnect } from './Firebase/firebase';
 import SignOutPage from './pages/SignOutPage';
 
